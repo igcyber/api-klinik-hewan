@@ -19,39 +19,62 @@ class PermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['guard_name' => 'api', 'name' => 'edit articles']);
-        Permission::create(['guard_name' => 'api','name' => 'delete articles']);
-        Permission::create(['guard_name' => 'api','name' => 'publish articles']);
-        Permission::create(['guard_name' => 'api','name' => 'unpublish articles']);
+        Permission::create(['guard_name' => 'api', 'name' => 'register_role']);
+        Permission::create(['guard_name' => 'api','name' => 'list_role']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_role']);
+        Permission::create(['guard_name' => 'api','name' => 'delete_role']);
+
+        Permission::create(['guard_name' => 'api', 'name' => 'register_veterinarian']);
+        Permission::create(['guard_name' => 'api','name' => 'list_veterinarian']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_veterinarian']);
+        Permission::create(['guard_name' => 'api','name' => 'delete_veterinarian']);
+        Permission::create(['guard_name' => 'api','name' => 'profile_veterinarian']);
+
+        Permission::create(['guard_name' => 'api', 'name' => 'register_pet']);
+        Permission::create(['guard_name' => 'api','name' => 'list_pet']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_pet']);
+        Permission::create(['guard_name' => 'api','name' => 'delete_pet']);
+        Permission::create(['guard_name' => 'api','name' => 'profile_pet']);
+
+        Permission::create(['guard_name' => 'api', 'name' => 'register_staff']);
+        Permission::create(['guard_name' => 'api','name' => 'list_staff']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_staff']);
+        Permission::create(['guard_name' => 'api','name' => 'delete_staff']);
+
+        Permission::create(['guard_name' => 'api', 'name' => 'register_appointment']);
+        Permission::create(['guard_name' => 'api','name' => 'list_appointment']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_appointment']);
+        Permission::create(['guard_name' => 'api','name' => 'delete_appointment']);
+
+        Permission::create(['guard_name' => 'api','name' => 'show_payment']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_payment']);
+
+        Permission::create(['guard_name' => 'api','name' => 'calendar']);
+
+        Permission::create(['guard_name' => 'api','name' => 'register_vaccination']);
+        Permission::create(['guard_name' => 'api','name' => 'list_vaccination']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_vaccination']);
+        Permission::create(['guard_name' => 'api','name' => 'delete_vaccination']);
+
+        Permission::create(['guard_name' => 'api','name' => 'register_surgeries']);
+        Permission::create(['guard_name' => 'api','name' => 'list_surgeries']);
+        Permission::create(['guard_name' => 'api','name' => 'edit_surgeries']);
+        Permission::create(['guard_name' => 'api','name' => 'delete_surgeries']);
+
+        Permission::create(['guard_name' => 'api','name' => 'show_medical_records']);
+
+        Permission::create(['guard_name' => 'api','name' => 'show_report_grafics']);
 
         // create roles and assign existing permissions
-        $role1 = Role::create(['guard_name' => 'api','name' => 'staff']);
-        $role1->givePermissionTo('edit articles');
-        $role1->givePermissionTo('delete articles');
-
-        $role2 = Role::create(['guard_name' => 'api','name' => 'admin']);
-        $role2->givePermissionTo('publish articles');
-        $role2->givePermissionTo('unpublish articles');
-
         $role3 = Role::create(['guard_name' => 'api','name' => 'super-admin']);
-        // gets all permissions via Gate::before rule; see AuthServiceProvider
-
-        // create demo users
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Staff User',
-            'email' => 'tester@example.com',
-        ]);
-        $user->assignRole($role1);
-
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-        ]);
-        $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Super Admin User',
-            'email' => 'superadmin@example.com',
+            'username' => 'super-admin',
+            'role_id' => 1,
+            'avatar' => null,
+            'email' => 'superadmin@gmail.com',
+            'password' => bcrypt('password')
         ]);
         $user->assignRole($role3);
     }

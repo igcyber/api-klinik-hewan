@@ -42,7 +42,7 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request(['username', 'password']);
 
         if (! $token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -96,9 +96,12 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60,
-            'users' => [
+            'user' => [
                 'name' => auth('api')->user()->name,
-                'email' => auth('api')->user()->email
+                'username' => auth('api')->user()->username,
+                'email' => auth('api')->user()->email,
+                'avatar' => auth('api')->user()->avatar ? env('APP_URL').'storage/'.auth('api')->user()->avatar : null,
+                'role' => auth('api')->user()->role,
             ]
         ]);
     }
