@@ -21,16 +21,17 @@ class UserResource extends JsonResource
             'username' => $this->resource->username,
             'email' => $this->resource->email,
             'password' => $this->resource->password,
-            'role_id' => $this->resource->role_id,
-            'role' => [
-                'name' => $this->resource->role->name
-            ],
-            'avatar' => env("APP_URL")."storage/".$this->resource->avatar,
+            // 'role_id' => $this->resource->role_id,
+            // 'role' => [
+            //     'name' => $this->resource->role->name
+            // ],
+            'role_name' => $this->resource->role->name,
+            'avatar' => $this->resource->avatar ? env("APP_URL")."storage/".$this->resource->avatar : null,
             'phone' => $this->resource->phone,
             'type_doc' => $this->resource->type_doc,
             'n_doc' => $this->resource->n_doc,
-            'birthday' => $this->resource->birthday ? Carbon::parse($this->resource->birthday)->format("d-m-y") : null,
-            'designation' => $this->resource->designation
+            // 'birthday' => $this->resource->birthday ? Carbon::parse($this->resource->birthday)->format("d-m-y") : null,
+            // 'designation' => $this->resource->designation
         ];
     }
 }

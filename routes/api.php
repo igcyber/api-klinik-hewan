@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Role\RoleController;
+use App\Http\Controllers\Staff\StaffController;
 
 Route::group([
     // 'middleware' => 'api',
@@ -21,5 +22,6 @@ Route::group([
     'middleware' => ['auth:api'],
 ], function ($router) {
     Route::resource('/role', RoleController::class)->except('show');
+    Route::resource('/staff', StaffController::class)->except('show');
 });
 
