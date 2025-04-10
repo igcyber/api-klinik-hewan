@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User\UserCollection;
+use App\Http\Resources\User\UserResource;
 use Illuminate\Support\Facades\Storage;
 
 class StaffController extends Controller
@@ -19,17 +21,9 @@ class StaffController extends Controller
         $search = $request->get('search');
         //search the data based on that string query param
         $users = User::where('name', 'ilike', '%'. $search . '%')->orderBy('id', 'desc')->get();
-        //return response in json format
+        //return response in json format with collection
         return response()->json([
-            //take $users and go through each one (like a loop) using map
-            //and only return id, name, username
-            'users' => $users->map(function($user){
-                return [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'username' => $user->username
-                ];
-            })
+            'users' => UserCollection::make($users)
         ]);
     }
 
@@ -70,7 +64,7 @@ class StaffController extends Controller
         //return with this response
         return response()->json([
             'http_code' => 200,
-            'user' => $user
+            'user' => UserResource::make($user)
         ]);
     }
 
@@ -126,7 +120,7 @@ class StaffController extends Controller
         // Return a success response with the updated user data
         return response()->json([
             'http_code' => 200,
-            'user' => $user
+            'user' => UserResource::make($user)
         ]);
     }
 
